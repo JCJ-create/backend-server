@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <style>              .container {
+            display: flex;
+        }
+        .form-container {
+            width: 33.33%; /* Left third */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .filler-text {
+            width: 66.67%; /* Right two-thirds */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }</style>
+</head>
+<body>
+    <header class="bg-primary text-white text-center py-3">
+        <h1>My PMI Application</h1>
+    </header>
+
+    <main class="container mt-4">
+        <div class="form-container">
+            <h2>Form Section</h2>
+            <form action="/submit" method="POST">
+                <div class="form-group">
+                    <label for="country">Select a country:</label>
+                    <select class="form-control" id="country" name="country"></select>
+                </div>
+                
+                <script>
+                    $(document).ready(function() {
+                        $.getJSON('https://restcountries.com/v3.1/all', function(data) {
+                            // Sort the data by country name
+                            data.sort(function(a, b) {
+                                return a.name.common.localeCompare(b.name.common);
+                            });
+
+                            // Populate the dropdown
+                            $.each(data, function(key, value) {
+                                $('#country').append($('<option></option>').attr('value', value.cca2).text(value.name.common));
+                            });
+                        });
+                    });
+                </script>
+                
+                <div class="form-group">
+                    <label>Choose your favorite fruit:</label><br>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="fruit" id="apple" value="apple">
+                        <label class="form-check-label" for="apple">Apple</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="fruit" id="banana" value="banana">
+                        <label class="form-check-label" for="banana">Banana</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="fruit" id="orange" value="orange">
+                        <label class="form-check-label" for="orange">Orange</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Select your hobbies:</label><br>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="hobbies" id="reading" value="reading">
+                        <label class="form-check-label" for="reading">Reading</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="hobbies" id="traveling" value="traveling">
+                        <label class="form-check-label" for="traveling">Traveling</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="hobbies" id="cooking" value="cooking">
+                        <label class="form-check-label" for="cooking">Cooking</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="date">What is your name day?</label>
+                    <input type="date" id="date" name="date" class="form-control">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+<div class="filler-text">
+    <h2>Welcome to PMI</h2>
+    <h3>What You Mean to Us</h3>
+    <p>
+        At PMI, you are not just a client; you are a vital part of our community. Your needs and feedback help us grow and improve our services. We value your input and are committed to providing the best experience possible.
+    </p>
+    <h3>How We Can Serve You</h3>
+    <p>
+        Our mission is to offer tailored solutions that meet your specific needs. Whether it's through personalized support, innovative resources, or expert advice, we are here to help you achieve your goals.
+    </p>
+</div>
+
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3">
+        <p>© 2024 PMI International</p>
+    </footer>
+</body>
+</html>
